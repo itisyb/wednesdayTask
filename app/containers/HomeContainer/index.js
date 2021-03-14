@@ -55,7 +55,8 @@ export function HomeContainer({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const loaded = get(reposData, 'items', null) || reposError;
+    const loaded = get(reposData, 'results', null) || reposError;
+    console.log(reposData);
     if (loading && loaded) {
       setLoading(false);
     }
@@ -81,8 +82,9 @@ export function HomeContainer({
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
 
   const renderRepoList = () => {
-    const items = get(reposData, 'items', []);
-    const totalCount = get(reposData, 'totalCount', 0);
+    const items = get(reposData, 'results', []);
+    const totalCount = get(reposData, 'resultCount', 0);
+    console.log(items);
     return (
       (items.length !== 0 || loading) && (
         <CustomCard>
@@ -99,9 +101,9 @@ export function HomeContainer({
             )}
             {items.map((item, index) => (
               <CustomCard key={index}>
-                <T id="repository_name" values={{ name: item.name }} />
-                <T id="repository_full_name" values={{ fullName: item.fullName }} />
-                <T id="repository_stars" values={{ stars: item.stargazersCount }} />
+                <T id="artist_name" values={{ artist: item.artistName }} />
+                <T id="song_name" values={{ song: item.trackName }} />
+                <T id="released_date" values={{ date: item.releaseDate }} />
               </CustomCard>
             ))}
           </Skeleton>
